@@ -58,6 +58,7 @@ namespace MyBlog.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                
             });
         }
     }

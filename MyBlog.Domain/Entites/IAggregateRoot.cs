@@ -6,8 +6,5 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Domain.Entites
 {
-    public interface AggregateRoot
-    {
-
-    }
+    public interface IAggregateRoot { };
 }

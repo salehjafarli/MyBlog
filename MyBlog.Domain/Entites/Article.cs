@@ -11,6 +11,8 @@ namespace MyBlog.Domain.Entites
     public class Article : Entity, IAggregateRoot
     {
         public string  Header { get; set; }
+        public string MainImage { get;set; }
+        public string Description { get; set; }
         public List<Section> Sections { get; set; }
         public DateTime Date { get; set; }
 

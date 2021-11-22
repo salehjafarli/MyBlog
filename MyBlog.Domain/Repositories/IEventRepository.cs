@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Domain.Repositories
 {
-    public interface IEventRepository<T> where T : DomainEvent
+    public interface IEventRepository 
     {
-        public Task<bool> Add(T @event);
+        public Task<bool> Add<T>(T @event) where T : DomainEvent; 
     }
 }

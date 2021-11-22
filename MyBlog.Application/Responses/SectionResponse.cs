@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.Domain.ValueObjects
+namespace MyBlog.Application.Responses
 {
-    public class Section : ValueObject
+    public class SectionResponse
     {
         public string Header { get; set; }
         public string Image { get; set; }

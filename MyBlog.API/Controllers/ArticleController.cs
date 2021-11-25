@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.Application.Services;
+using MyBlog.Application.ViewModels;
 using MyBlog.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,46 @@ namespace MyBlog.API.Controllers
     [ApiController]
     public class ArticleController : ControllerBase
     {
-        public ArticleController(IArticleRepository Repo)
+        public ArticleController(IArticleService ArticleService)
         {
-            this.Repo = Repo;
+            this.ArticleService = ArticleService;
         }
+        public IArticleService ArticleService { get; }
 
-        public IArticleRepository Repo { get; }
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(await Repo.GetById(id));
+            var res = await ArticleService.GetArticle(id);
+            return res is null ? NotFound() : Ok(res);
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var res = await ArticleService.GetArticle();
+            return res is null ? NotFound() : Ok(res);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(AddNewArticleVM VModel)
+        {
+            var res = await ArticleService.CreateArticle(VModel);
+            return res ? Ok() : NotFound(); 
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(UpdateArticleVM VModel)
+        {
+            var res = await ArticleService.UpdateArticle(VModel);
+            return res ? Ok() : NotFound();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(RemoveArticleVM VModel)
+        {
+            var res = await ArticleService.DeleteArticle(VModel);
+            return res ? Ok() : NotFound();
+        }
+
+
+
+
     }
 }

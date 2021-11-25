@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MyBlog.Application.Extensions;
+using MyBlog.Common.Extensions;
 using MyBlog.Domain.Repositories;
 using MyBlog.Infrastructure.Repositories;
 using System;
@@ -27,8 +29,8 @@ namespace MyBlog.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddServices(Configuration);
 
-            services.AddScoped<IArticleRepository>(x => new ArticleRepository(Configuration.GetConnectionString("npgsql")));
 
             services.AddCors(x =>
             {
@@ -59,6 +61,7 @@ namespace MyBlog.API
             app.UseCors("mycors");
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.Infrastructure.Helpers
+namespace MyBlog.Application.Helpers
 {
     public static class PasswordHasher
     {

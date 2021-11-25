@@ -20,6 +20,7 @@ namespace MyBlog.Application.Extensions
 
 
             services.AddScoped<IArticleService,ArticleManager>();
+            services.AddScoped<ITokenService, TokenManager>();
             services.AddScoped<IUserService, UserManager>();
         }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.Application.Attributes;
 using MyBlog.Application.Services;
 using MyBlog.Application.ViewModels;
 using MyBlog.Domain.Repositories;
@@ -12,6 +13,7 @@ namespace MyBlog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ArticleController : ControllerBase
     {
         public ArticleController(IArticleService ArticleService)
@@ -51,9 +53,6 @@ namespace MyBlog.API.Controllers
             var res = await ArticleService.DeleteArticle(VModel);
             return res ? Ok() : NotFound();
         }
-
-
-
 
     }
 }

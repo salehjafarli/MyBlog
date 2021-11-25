@@ -1,4 +1,5 @@
-﻿using MyBlog.Application.ViewModels;
+﻿using MyBlog.Application.Responses;
+using MyBlog.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace MyBlog.Application.Services
 {
     public interface IUserService
     {
-        public Task<bool> Login(LoginVM loginVM);
+        public Task<TokenResponse> Login(LoginVM loginVM);
+        public Task<TokenResponse> RenewToken(string RefreshToken);
     }
 }

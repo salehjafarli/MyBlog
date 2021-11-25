@@ -14,7 +14,7 @@ namespace MyBlog.Infrastructure.Extensions
     {
         public static void AddInfrastructureExtensions(this IServiceCollection services, IConfiguration Configuration)
         {
-            var ConString = Configuration.GetConnectionString("npgsql"));
+            var ConString = Configuration.GetConnectionString("npgsql");
             services.AddScoped<IArticleRepository>(x => new ArticleRepository(ConString));
             services.AddScoped<IUserRepository>(x => new UserRepository(ConString));
 

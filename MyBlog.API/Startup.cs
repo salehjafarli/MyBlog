@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MyBlog.Application.Extensions;
+using MyBlog.Application.Middlewares;
 using MyBlog.Common.Extensions;
 using MyBlog.Domain.Repositories;
 using MyBlog.Infrastructure.Repositories;
@@ -42,9 +43,34 @@ namespace MyBlog.API
                 });
             });
             services.AddControllers();
+
+
+            var scheme = new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "bearer",
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+
+            };
+
+
+
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Api1", Version = "v1" });
+                opt.AddSecurityDefinition("Bearer", scheme);
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {scheme,new string[] { }}
+                });
             });
         }
 
@@ -60,8 +86,7 @@ namespace MyBlog.API
             app.UseRouting();
             app.UseCors("mycors");
 
-            app.UseAuthorization();
-            app.UseAuthentication();
+            app.UseMiddleware<JWTMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

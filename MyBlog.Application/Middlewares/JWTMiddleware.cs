@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using MyBlog.Application.Helpers;
 using MyBlog.Application.Services;
 using System;
 using System.Collections.Generic;
@@ -11,43 +12,28 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Application.Middlewares
 {
-    public class JWTMiddleware : IMiddleware
+    public class JWTMiddleware
     {
-        public JWTMiddleware(IUserService UserService,IConfiguration Configuration)
-        {
-            this.UserService = UserService;
-            this.Configuration = Configuration;
-        }
         private readonly RequestDelegate next;
 
         public JWTMiddleware(RequestDelegate next)
         {
             this.next = next;
-        }
-        public IUserService UserService { get; }
-        public IConfiguration Configuration { get; }
 
-        public async Task InvokeAsync(HttpContext context)
+        }
+
+
+        public async Task InvokeAsync(HttpContext context,IConfiguration Configuration)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("jwtsecret").Value);
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            var res = JwtTokenValidator.Validate(token,Configuration.GetSection("jwtsecret").Value,out SecurityToken securityToken);
+            if (res)
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
-
-            var jwtToken = (JwtSecurityToken)validatedToken;
-
+                var jwtToken = (JwtSecurityToken)securityToken;
+                string username = jwtToken.Claims.FirstOrDefault(x => x.Type == "username").Value;
+                context.Items["username"] = username;
+            }
             // attach user to context on successful jwt validation
-
             await next(context);
         }
     }

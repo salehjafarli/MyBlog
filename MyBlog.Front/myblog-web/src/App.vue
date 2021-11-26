@@ -1,15 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Navbar />
+
+
+
+  <Footer />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//eslint-disable-next-line 
+import Navbar from "./components/Navbar.vue"
+import Footer from "./components/Footer.vue"
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Navbar,
+    Footer
   }
 }
 </script>

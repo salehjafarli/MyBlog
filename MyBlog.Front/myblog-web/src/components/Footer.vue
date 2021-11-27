@@ -20,7 +20,6 @@
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-instagram"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-telegram"></i></a>
         </section>
         <section>
             <a href="#">Home</a>

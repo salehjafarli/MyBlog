@@ -5,10 +5,10 @@
             <div style="padding-left:20px" class="title2">MyBlog</div>
             <div class="spacer" ></div>
             <div class="Pages">
-                <span class="ml5">Home</span>
-                <span class="ml5">Blog</span>
-                <span class="ml5">Contact</span>
-                <span class="ml5">Newsletter</span>
+                <span class="ml5" v-on:click="$emit('ChangeTab', $event, 'Home')">Home</span>
+                <span class="ml5" v-on:click="$emit('ChangeTab', $event, 'Blog')">Blog</span>
+                <span class="ml5" v-on:click="$emit('ChangeTab', $event, 'Contact')">Contact</span>
+                <span class="ml5" v-on:click="$emit('ChangeTab', $event, 'Newsletter')">Newsletter</span>
             </div>
           </w-toolbar>
     </div>
@@ -16,6 +16,9 @@
 
 <script>
 export default {
+    emits : [
+        'ChangeTab'
+    ],
     data : () => {
         
         
@@ -34,7 +37,7 @@ export default {
     height: 100%;
 }
 .navbarcontent{
-    width: 60%;
+    width: 80%;
     margin: auto;
 }
 .Pages{

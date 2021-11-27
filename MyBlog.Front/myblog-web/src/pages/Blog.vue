@@ -28,7 +28,7 @@ export default {
         return{
             nums : [...Array(20).keys()],
             page:2,
-            rows:20
+            rows:31
         }
     }
 }

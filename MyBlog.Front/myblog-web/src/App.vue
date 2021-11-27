@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      CurrentTab : 'Contact'
+      CurrentTab : 'Newsletter'
     }
   },
   methods : {

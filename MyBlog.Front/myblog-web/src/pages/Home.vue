@@ -1,14 +1,14 @@
 <template>
     <div>
-        <w-flex align-start :gap="4" class="mt1">
+        <w-flex justify-center  align-start :gap="4" class="mt1">
             <!-- <template v-for="n in [1,2,3,4]" :key="n">
                 {{n}}
                 <Card />
             </template> -->
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            <Card class="Cards"/>
+            <Card class="Cards"/>
+            <Card class="Cards"/>
+            <Card class="Cards"/>
         </w-flex>
         <div class="WelcomePanel">
             <h1>Welcome</h1>
@@ -37,34 +37,40 @@
         <div class="FeaturedPosts">
             <div class="FeaturedPostCarousel">
                 <p>North America</p>
-                <w-flex  align-start :gap="4" class="mt1">
+                <w-flex  justify-center  align-start :gap="4" class="mt1">
                     <Card />
                     <Card />
                     <Card />
                 </w-flex>
              </div>
-             <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             <div class="divider">
+                <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             </div>
              <div class="FeaturedPostCarousel">
                 <p>North America</p>
-                <w-flex  align-start :gap="4" class="mt1">
+                <w-flex  justify-center align-start :gap="4" class="mt1">
                     <Card />
                     <Card />
                     <Card />
                 </w-flex>
              </div>
-             <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             <div class="divider">
+                <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             </div>
              <div class="FeaturedPostCarousel">
                 <p>North America</p>
-                <w-flex  align-start :gap="4" class="mt1">
+                <w-flex  justify-center  align-start :gap="4" class="mt1">
                     <Card />
                     <Card />
                     <Card />
                 </w-flex>
              </div>
-             <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             <div class="divider">
+                <w-divider color="yellow-light3"  class="my6 mx-3"></w-divider>
+             </div>
              <div class="FeaturedPostCarousel">
                 <p>North America</p>
-                <w-flex  align-start :gap="4" class="mt1">
+                <w-flex   justify-center align-start :gap="4" class="mt1">
                     <Card />
                     <Card />
                     <Card />
@@ -95,10 +101,13 @@ export default {
 .WelcomePanel{
     margin: 10% 0px 10% 0px;
 }
-
+.divider{
+    margin-left: -14%;
+    margin-right: -14%;
+}
 .WelcomeImgContainer{
     height: 500px;
-    border: 2px solid yellow;
+    border: 2px solid var(--secondary-color);
     margin: 4% 0px 8% 0px;
 
 }
@@ -120,6 +129,9 @@ export default {
 }
 .FeaturedPost{
     background-image : url(https://wallpaperaccess.com/full/138733.jpg);
+    background-attachment: fixed;
+    margin-left: -14%;
+    margin-right: -14%;
     
 }
 .InnerDiv{
@@ -132,7 +144,7 @@ export default {
 
 }
 .InnerDiv button p{
-    padding: 20px;
+    padding: 50px;
 }
 .FeaturedPosts{
     margin: 60px 0px 20px 0px;

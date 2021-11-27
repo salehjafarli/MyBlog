@@ -81,7 +81,7 @@ export default {
             if (
                 this.value + 1 <=
                 Math.ceil(this.rowsNumber / this.rowsPerPage)
-            ) {
+            ){
                 this.onPageClick(this.value + 1);
             }
         },

@@ -1,19 +1,14 @@
 <template>
     <div>
-        <w-flex justify-center  align-start :gap="4" class="mt1">
-            <!-- <template v-for="n in [1,2,3,4]" :key="n">
-                {{n}}
-                <Card />
-            </template> -->
-            <Card class="Cards"/>
-            <Card class="Cards"/>
-            <Card class="Cards"/>
-            <Card class="Cards"/>
+        <w-flex justify-center wrap  :gap="10" class="mt1">
+            <Card class="xs2"/>
+            <Card class="xs2"/>
+            <Card class="xs2"/>
+            <Card class="xs2"/>
         </w-flex>
         <div class="WelcomePanel">
             <h1>Welcome</h1>
             <div class="WelcomeImgContainer">
-
             </div>
             <div class="WelcomeParagraphContainer">
                 <h3>IT ALL STARTED IN 2011…</h3>
@@ -26,7 +21,6 @@
                 <a href="#"><i class="fa fa-twitter"></i></a>
             </div>
         </div>
-
         <div class="FeaturedPost">
             <div class="InnerDiv">
                 <h1>Why travel is Important?</h1>
@@ -78,12 +72,6 @@
              </div>
 
         </div>
-        
-
-
-
-
-
     </div>
 </template>
 
@@ -154,8 +142,7 @@ export default {
     margin-bottom : 15%;
 }
 .FeaturedPostCarousel p{
-    display: block;
-    
+    display: block;  
     font-size: 14px;
 }
 </style>

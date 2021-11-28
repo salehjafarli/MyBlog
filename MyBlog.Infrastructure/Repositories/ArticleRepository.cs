@@ -31,9 +31,36 @@ namespace MyBlog.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Article>> Get()
+        public async Task<IEnumerable<Article>> Get()
         {
-            throw new NotImplementedException();
+            List<Article> result = new List<Article>();
+            using (NpgsqlConnection conn = new NpgsqlConnection(ConString))
+            {
+                var comtext = "select* from article";
+                using (NpgsqlCommand comm = new NpgsqlCommand(comtext, conn))
+                {
+                    await conn.OpenAsync();
+                    Article article; 
+                    var reader = await comm.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        article = new Article()
+                        {
+                            Id = (int)reader["id"],
+                            MainImage = (string)reader["mainimage"],
+                            Header = (string)reader["header"],
+                            Date = (DateTime)reader["createddate"],
+                            Description = (string)reader["description"]
+                        };
+                        var contentpath = (string)reader["contentpath"];
+                        var xmlHelper = new XmlHelper(contentpath);
+                        var sections = xmlHelper.Extract<List<Section>>();
+                        article.Sections = sections;
+                        result.Add(article);
+                    }
+                }
+            }
+            return result;
         }
 
         public async Task<Article> GetById(int id)

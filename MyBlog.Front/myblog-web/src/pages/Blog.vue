@@ -1,7 +1,8 @@
 <template>
     <div>
-        <w-flex wrap justify-center  :gap="10" class="mt1" >
-            <Card class="Cards" v-for="n in nums" v-bind:key="n" />
+        <w-flex wrap justify-center :gap="10" class="mt1" >
+            <Card :Header="getArticles[0].header" :date="getArticles[0].date" 
+            :imgsrc="getArticles[0].mainImage" class="Cards" v-for="n in nums" v-bind:key="n" />
         </w-flex>
         <div class="PaginationContainer">
             <!--eslint-disable-next-line-->
@@ -18,6 +19,7 @@
 <script>
 import Card from '../components/Card.vue'
 import Pagination from '../components/Pagination.vue'
+import {mapGetters, mapActions} from 'vuex' 
 export default {
     components:{
         Card,
@@ -28,9 +30,21 @@ export default {
         return{
             nums : [...Array(20).keys()],
             page:2,
-            rows:31
+            rows:31,
+            description : ''
         }
+    },
+    computed : {
+        ...mapGetters(['getArticles'])
+    },
+    methods : {
+        ...mapActions(['FetchArticles'])
+    },
+    created(){
+       this.FetchArticles();
+       
     }
+
 }
 </script>
 

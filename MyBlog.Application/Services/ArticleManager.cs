@@ -48,8 +48,7 @@ namespace MyBlog.Application.Services
         public async Task<ArticleResponse> GetArticle(int id)
         {
             var query = new QueryById<Article>(id);
-            var list = await CommandQueryDispatcher.ExecuteQuery(query);
-            var res = list.FirstOrDefault();
+            var res = await CommandQueryDispatcher.ExecuteQuery(query);
             return Mapper.Map<ArticleResponse>(res);
         }
 
@@ -57,8 +56,7 @@ namespace MyBlog.Application.Services
         {
             var query = new QueryAll<Article>();
             var list = await CommandQueryDispatcher.ExecuteQuery(query);
-            var res = list.FirstOrDefault();
-            return Mapper.Map<List<ArticleResponse>>(res);
+            return Mapper.Map<List<ArticleResponse>>(list);
         }
 
         

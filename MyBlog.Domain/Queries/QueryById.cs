@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Domain.Queries
 {
-    public class QueryById<T> : IQuery<T> where T : Entity
+    public class QueryById<T> : IRequest<T> where T : Entity
     {
         public QueryById(int Id)
         {

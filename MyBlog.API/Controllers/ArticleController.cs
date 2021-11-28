@@ -13,7 +13,7 @@ namespace MyBlog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class ArticleController : ControllerBase
     {
         public ArticleController(IArticleService ArticleService)

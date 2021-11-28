@@ -1,4 +1,5 @@
-﻿using MyBlog.Domain.Commands;
+﻿using MediatR;
+using MyBlog.Domain.Commands;
 using MyBlog.Domain.Entites;
 using MyBlog.Domain.Queries;
 using System;
@@ -12,6 +13,6 @@ namespace MyBlog.Domain.CommandDispatchers
     public interface ICommandQueryDispatcher
     {
         public Task<bool> ExecuteCommand<T>(T Command) where T : ICommand;
-        public Task<ICollection<TEntity>> ExecuteQuery<TEntity>(IQuery<TEntity> Query) where TEntity : Entity;
+        public Task<T> ExecuteQuery<T>(IRequest<T> Query);
     }
 }

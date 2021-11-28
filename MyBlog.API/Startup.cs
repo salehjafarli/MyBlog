@@ -86,7 +86,7 @@ namespace MyBlog.API
             app.UseRouting();
             app.UseCors("mycors");
 
-            app.UseMiddleware<JWTMiddleware>();
+            // app.UseMiddleware<JWTMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

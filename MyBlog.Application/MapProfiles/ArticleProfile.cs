@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using MyBlog.Application.Responses;
 using MyBlog.Application.ViewModels;
 using MyBlog.Domain.Commands.Article;
+using MyBlog.Domain.Entites;
+using MyBlog.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,8 @@ namespace MyBlog.Application.MapProfiles
             CreateMap<AddNewArticleVM,CreateArticleCommand>();
             CreateMap<UpdateArticleVM, UpdateArticleCommand>();
             CreateMap<RemoveArticleVM, RemoveArticleCommand>();
+            CreateMap<Article,ArticleResponse>();
+            CreateMap<Section, SectionResponse>();
         }
     }
 }

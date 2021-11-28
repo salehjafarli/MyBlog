@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      CurrentTab : 'Newsletter'
+      CurrentTab : 'Home'
     }
   },
   methods : {

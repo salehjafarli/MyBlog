@@ -24,8 +24,7 @@ namespace MyBlog.Domain.CommandDispatchers
             return await Mediator.Send(Command);
         }
 
-        public async Task<ICollection<TEntity>> ExecuteQuery<TEntity>(IQuery<TEntity> Query)
-            where TEntity : Entity
+        public async Task<T> ExecuteQuery<T>(IRequest<T> Query)
         {
             return await Mediator.Send(Query);
         }

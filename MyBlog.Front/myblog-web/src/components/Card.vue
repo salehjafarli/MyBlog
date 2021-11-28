@@ -2,10 +2,11 @@
     <div class="card">
         <w-card  shadow>
             <div class="imageContainer">
+                <img v-bind:src="imgsrc" />
             </div>
-            <time class= 'date'>2021-12-12</time>
+            <date class= 'date'>{{date}}</date>
             <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                {{Header}}
             </p>
         </w-card>
     </div>
@@ -14,6 +15,7 @@
 
 <script>
 export default {
+    props : ['Header','date','imgsrc'],
     Name : "Card"
 }
 </script>

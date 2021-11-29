@@ -36,15 +36,16 @@ export default {
         ...mapGetters(['getArticles','getById'])
     },
     methods : {
-        ...mapActions(['FetchArticles']),
+        ...mapActions(['FetchArticles','FetchArticleById']),
 
-        OpenBlog(event,id){
-          var article = this.getById(id);  
+       async OpenBlog(event,id){
+          await this.FetchArticleById(id);
+          var article = this.getById(id);
           this.$emit('ArticleClicked',event,article);
         }
     },
-    created(){
-       this.FetchArticles();
+    async created(){
+       await this.FetchArticles();
        
     }
 

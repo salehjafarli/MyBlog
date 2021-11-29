@@ -6,6 +6,7 @@ using MyBlog.Domain.Commands;
 using MyBlog.Domain.Commands.Article;
 using MyBlog.Domain.Entites;
 using MyBlog.Domain.Queries;
+using MyBlog.Domain.Queries.Article;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,13 +66,11 @@ namespace MyBlog.Application.Services
         }
 
 
-        private void Replace(Article article)
+        public async Task<ICollection<ArticleResponse>> GetArticle(string category)
         {
-            foreach (var section in article.Sections)
-            {
-                section.Paragraph = section.Paragraph.Replace("\n","<br/>");
-            }
+            var query = new QueryArticleByCategory(category);
+            var res = await CommandQueryDispatcher.ExecuteQuery(query);
+            return Mapper.Map<List<ArticleResponse>>(res);
         }
-        
     }
 }

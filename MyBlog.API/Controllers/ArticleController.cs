@@ -30,6 +30,13 @@ namespace MyBlog.API.Controllers
             return res is null ? NotFound() : Ok(res);
         }
         [HttpGet]
+        [Route("GetByCategory/{category}")]
+        public async Task<IActionResult> Get(string category)
+        {
+            var res = await ArticleService.GetArticle(category);
+            return res is null ? NotFound() : Ok(res);
+        }
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var res = await ArticleService.GetArticle();

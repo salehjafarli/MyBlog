@@ -1,13 +1,14 @@
 import ApiService from '../common/ApiService'
 export default {
-    state : {
+    state : {   
         Articles : [
             {
-                id : 2,
+                id : 0,
                 header : 'a',
                 date : new Date(),
                 mainImage : '',
                 description : 'description',
+                category : 'a',
                 sections : [
                     {
                         header : 'asd',
@@ -23,9 +24,14 @@ export default {
     getters : {
         getArticles(state){
             return state.Articles;
+            
         },
+        //eslint-disable-next-line
         getById(state){
-            return (id) => state.Articles.find(art => art.id == id );
+            return (id) =>
+            { 
+                return state.Articles.find(art => art.id == id );
+            };
         }
 
     },
@@ -34,6 +40,10 @@ export default {
             var response = await ApiService.get('article');
             context.commit('SetArticle',response.data);
 
+        },
+        async FetchArticleById(context,id){
+            var response = await ApiService.get('article',id);
+            context.commit('SetArticleById',response.data);
         }
 
     },
@@ -41,14 +51,22 @@ export default {
         //eslint-disable-next-line
         SetArticle(state,articles){
             state.Articles = articles;
-            UpdateDates(state.Articles);
-            console.log(state.Articles);
+            state.Articles.forEach(article => {
+                UpdateDate(article);
+            });
+        },
+        SetArticleById(state,article){
+            state.Articles = [
+                ...state.Articles.filter(element => element.id !== article.id),
+                article
+            ]
+            state.Articles.forEach(article => {
+                UpdateDate(article);
+            });
         }
     }
 }
 
-function UpdateDates(articles){
-    articles.forEach(article => {
+function UpdateDate(article){
         article.date = new Date(article.date).toDateString();
-    });
 }

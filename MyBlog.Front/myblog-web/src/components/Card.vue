@@ -4,7 +4,10 @@
             <div class="imageWrapper">
                  <img class="mainImage" v-bind:src="`data:image/jpg;base64,${mainImage}`" />
             </div>
-            <date  class= 'date'>{{date}}</date>
+            <div style="display:flex;">
+                <p class="dateCategory">{{date}} {{category}}</p>
+            </div>
+            
             <p class="header">{{header}}</p>
             <p class="desc">{{description}}</p>
         </w-card>
@@ -19,8 +22,8 @@ export default {
         header : String,
         date : String,
         mainImage : String,
-        description : String
-
+        description : String,
+        category : String
     },
     Name : "Card"
 }
@@ -35,11 +38,12 @@ export default {
 }
 .card .header{
     font-size: 24px;
-    margin: 2% 0% 2% 0%;
+    margin: 3% 0% 3% 0%;
     
 }
-.date{
-    font-size:12px;
+.dateCategory{
+    font-size : 11px;
+    margin-top : 1%;
 }
 .desc{
     font-size: 14px;

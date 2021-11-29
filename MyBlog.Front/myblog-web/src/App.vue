@@ -47,8 +47,6 @@ export default {
     },
     OpenArticle($event,article){
       this.Article = article;
-      console.log(article);
-
       this.CurrentTab = 'ArticlePage'
       
     }

@@ -8,11 +8,11 @@ export function init(app){
     app.use(VueAxios,axios);
 }
 const apiService = {
-     get(controller){
-          var res = app.axios.get(`${Api_URL}/api/${controller}`);
-          return res;
-            
+     get(controller,params = ""){
+          var res = app.axios.get(`${Api_URL}/api/${controller}/${params}`);
+          return res;    
     },
+
     post(controller,body){
         var res = app.axios.post(`${Api_URL}/api/${controller}`,body);
         return res;

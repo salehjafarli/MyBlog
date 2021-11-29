@@ -13,6 +13,7 @@ namespace MyBlog.Domain.Entites
         public string  Header { get; set; }
         public byte[] MainImage { get;set; }
         public string Description { get; set; }
+        public string  Category { get; set; } 
         public List<Section> Sections { get; set; }
         public DateTime Date { get; set; }
 

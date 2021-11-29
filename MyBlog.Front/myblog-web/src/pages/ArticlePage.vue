@@ -3,7 +3,7 @@
     <div class="DateCategorySection">
      <p >{{date}}</p>
      <i class="fa fa-circle"></i>
-     <p>Category</p>
+     <p>{{category}}</p>
     </div>
     <h1>{{header}}</h1>
     <h2>{{description}}</h2>
@@ -30,12 +30,12 @@ export default {
         date : String,
         description : String,
         sections : Array,
+        category : String
     },
     data(){
         //eslint-disable-next-line
     },
     created(){
-        console.log(this.sections[0]);
     },
     methods : {
     }

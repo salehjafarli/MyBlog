@@ -50,21 +50,69 @@ namespace MyBlog.Infrastructure.Repositories
                             MainImage = ImageParser.Parse((string)reader["mainimage"]),
                             Header = (string)reader["header"],
                             Date = (DateTime)reader["createddate"],
-                            Description = (string)reader["description"]
+                            Description = (string)reader["description"],
+                            Category = (string)reader["category"]
+                            
                         };
-                        var contentpath = (string)reader["contentpath"];
-                        var xmlHelper = new XmlHelper(contentpath);
-                        var sections = xmlHelper.Extract<List<Section>>();
-                        article.Sections = sections;
-                        foreach (var section in sections)
-                        {
-                            section.Image = ImageParser.Parse(section.ImagePath);
-                        }
+
+                        //We dont need to fetch all data
+
+                        //var contentpath = (string)reader["contentpath"];
+                        //var xmlHelper = new XmlHelper(contentpath);
+                        //var sections = xmlHelper.Extract<List<Section>>();
+                        //article.Sections = sections;
+                        //foreach (var section in sections)
+                        //{
+                        //    section.Image = ImageParser.Parse(section.ImagePath);
+                        //}
                         result.Add(article);
                     }
                 }
             }
             return result;
+        }
+
+        public async Task<ICollection<Article>> GetByCategory(string category)
+        {
+            List<Article> result = new List<Article>();
+            using (NpgsqlConnection conn = new NpgsqlConnection(ConString))
+            {
+                var comtext = "select* from article where category = @category";
+                using (NpgsqlCommand comm = new NpgsqlCommand(comtext, conn))
+                {
+                    comm.Parameters.AddWithValue("category",category);
+                    await conn.OpenAsync();
+                    Article article;
+                    var reader = await comm.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        article = new Article()
+                        {
+                            Id = (int)reader["id"],
+                            MainImage = ImageParser.Parse((string)reader["mainimage"]),
+                            Header = (string)reader["header"],
+                            Date = (DateTime)reader["createddate"],
+                            Description = (string)reader["description"],
+                            Category = (string)reader["category"]
+
+                        };
+
+                        //We dont need to fetch all data
+
+                        //var contentpath = (string)reader["contentpath"];
+                        //var xmlHelper = new XmlHelper(contentpath);
+                        //var sections = xmlHelper.Extract<List<Section>>();
+                        //article.Sections = sections;
+                        //foreach (var section in sections)
+                        //{
+                        //    section.Image = ImageParser.Parse(section.ImagePath);
+                        //}
+                        result.Add(article);
+                    }
+                }
+            }
+            return result;
+
         }
 
         public async Task<Article> GetById(int id)
@@ -86,7 +134,8 @@ namespace MyBlog.Infrastructure.Repositories
                             MainImage = ImageParser.Parse((string)reader["mainimage"]),
                             Header = (string)reader["header"],
                             Date = (DateTime)reader["createddate"],
-                            Description = (string)reader["description"]
+                            Description = (string)reader["description"],
+                            Category = (string)reader["category"]
                         };
                         var contentpath = (string)reader["contentpath"];
                         var xmlHelper = new XmlHelper(contentpath);

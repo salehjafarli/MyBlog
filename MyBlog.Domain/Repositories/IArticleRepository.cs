@@ -9,5 +9,6 @@ namespace MyBlog.Domain.Repositories
 {
     public interface IArticleRepository : IRepository<Article>
     {
+        Task<ICollection<Article>> GetByCategory(string category);
     }
 }

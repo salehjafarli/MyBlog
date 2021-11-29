@@ -14,6 +14,7 @@ namespace MyBlog.Application.Services
         public Task<bool> UpdateArticle(UpdateArticleVM vmodel);
         public Task<bool> DeleteArticle(RemoveArticleVM vmodel);
         public Task<ArticleResponse> GetArticle(int id);
+        public Task<ICollection<ArticleResponse>> GetArticle(string category);
         public Task<ICollection<ArticleResponse>> GetArticle();
     }
 }

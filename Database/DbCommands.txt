@@ -1,0 +1,12 @@
+create table Article
+(
+Id int generated always as identity,
+MainImage varchar(64) not null,
+Header varchar(30) not null,
+CreatedDate timestamp not null,
+ContentPath varchar(64) not null,
+Category varchar(3) not null,
+Primary key(Id)
+);
+
+

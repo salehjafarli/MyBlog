@@ -49,16 +49,29 @@ namespace MyBlog.Application.Services
         {
             var query = new QueryById<Article>(id);
             var res = await CommandQueryDispatcher.ExecuteQuery(query);
+            //Replace(res);
             return Mapper.Map<ArticleResponse>(res);
         }
 
         public async Task<ICollection<ArticleResponse>> GetArticle()
         {
             var query = new QueryAll<Article>();
-            var list = await CommandQueryDispatcher.ExecuteQuery(query);
-            return Mapper.Map<List<ArticleResponse>>(list);
+            var res = await CommandQueryDispatcher.ExecuteQuery(query);
+            //foreach (var item in res)
+            //{
+            //    Replace(item);
+            //}
+            return Mapper.Map<List<ArticleResponse>>(res);
         }
 
+
+        private void Replace(Article article)
+        {
+            foreach (var section in article.Sections)
+            {
+                section.Paragraph = section.Paragraph.Replace("\n","<br/>");
+            }
+        }
         
     }
 }

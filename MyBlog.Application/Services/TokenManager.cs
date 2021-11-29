@@ -35,7 +35,9 @@ namespace MyBlog.Application.Services
         public Task<TokenResponse> GetToken(string RefreshToken)
         {
             var res = JwtTokenValidator.Validate(RefreshToken, Secret, out SecurityToken validatedToken);
-            string username = ((JwtSecurityToken)validatedToken).Claims.FirstOrDefault(x => x.Type == "username").Value;
+            string username = "";
+            if (validatedToken != null)
+                username = ((JwtSecurityToken)validatedToken).Claims.FirstOrDefault(x => x.Type == "username").Value;
             if (res)
             {
                 var tokenBuilder = new JwtTokenBuilder().SetClaims("username", username);

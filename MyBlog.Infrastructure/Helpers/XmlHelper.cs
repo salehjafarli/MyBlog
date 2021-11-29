@@ -33,12 +33,5 @@ namespace MyBlog.Infrastructure.Helpers
             return (T)resultobj;
 
         }
-
-
-
-        public void SpecialCharacterReplacer()
-        {
-
-        }
     }
 }

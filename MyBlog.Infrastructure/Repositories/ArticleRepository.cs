@@ -47,7 +47,7 @@ namespace MyBlog.Infrastructure.Repositories
                         article = new Article()
                         {
                             Id = (int)reader["id"],
-                            MainImage = (string)reader["mainimage"],
+                            MainImage = ImageParser.Parse((string)reader["mainimage"]),
                             Header = (string)reader["header"],
                             Date = (DateTime)reader["createddate"],
                             Description = (string)reader["description"]
@@ -56,6 +56,10 @@ namespace MyBlog.Infrastructure.Repositories
                         var xmlHelper = new XmlHelper(contentpath);
                         var sections = xmlHelper.Extract<List<Section>>();
                         article.Sections = sections;
+                        foreach (var section in sections)
+                        {
+                            section.Image = ImageParser.Parse(section.ImagePath);
+                        }
                         result.Add(article);
                     }
                 }
@@ -79,7 +83,7 @@ namespace MyBlog.Infrastructure.Repositories
                         result = new Article()
                         {
                             Id =(int)reader["id"],
-                            MainImage = (string)reader["mainimage"],
+                            MainImage = ImageParser.Parse((string)reader["mainimage"]),
                             Header = (string)reader["header"],
                             Date = (DateTime)reader["createddate"],
                             Description = (string)reader["description"]
@@ -87,6 +91,10 @@ namespace MyBlog.Infrastructure.Repositories
                         var contentpath = (string)reader["contentpath"];
                         var xmlHelper = new XmlHelper(contentpath);
                         var sections = xmlHelper.Extract<List<Section>>();
+                        foreach (var section in sections)
+                        {
+                            section.Image = ImageParser.Parse(section.ImagePath);
+                        }
                         result.Sections = sections;
                     }
                 }

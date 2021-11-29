@@ -1,8 +1,8 @@
 <template>
     <div>
-        <w-flex wrap justify-center :gap="10" class="mt1" >
-            <Card :Header="getArticles[0].header" :date="getArticles[0].date" 
-            :imgsrc="getArticles[0].mainImage" class="Cards" v-for="n in nums" v-bind:key="n" />
+        <w-flex wrap justify-center  :gap="10" class="mt1" >
+            <Card @click="OpenBlog" v-bind="article"
+             class="Cards" v-for="article in getArticles" v-bind:key="article.id" />
         </w-flex>
         <div class="PaginationContainer">
             <!--eslint-disable-next-line-->
@@ -10,9 +10,6 @@
             :rows-number="rows"
             rows-per-page="5" />
         </div>
-        
-
-
     </div>
 </template>
 
@@ -20,6 +17,7 @@
 import Card from '../components/Card.vue'
 import Pagination from '../components/Pagination.vue'
 import {mapGetters, mapActions} from 'vuex' 
+
 export default {
     components:{
         Card,
@@ -35,10 +33,15 @@ export default {
         }
     },
     computed : {
-        ...mapGetters(['getArticles'])
+        ...mapGetters(['getArticles','getById'])
     },
     methods : {
-        ...mapActions(['FetchArticles'])
+        ...mapActions(['FetchArticles']),
+
+        OpenBlog(event,id){
+          var article = this.getById(id);  
+          this.$emit('ArticleClicked',event,article);
+        }
     },
     created(){
        this.FetchArticles();
@@ -50,7 +53,7 @@ export default {
 
 <style>
 .Cards{
-    width: 20%;
+    width: 22%;
 }
 .PaginationContainer{
     margin-top : 5%;

@@ -4,7 +4,7 @@
       <Navbar @ChangeTab="ChangeTab"/>
     </div>
     <div class="pages">
-      <component :is="CurrentTab"></component>
+      <component v-bind="CurrentTab == 'ArticlePage' ? Article : {}" @ArticleClicked ="OpenArticle" :is="CurrentTab"></component>
     </div>
     <Footer />
   </w-app>
@@ -14,6 +14,7 @@
 import Navbar from './components/Navbar.vue'
 import Home from './pages/Home.vue'
 import Blog from './pages/Blog.vue'
+import ArticlePage from './pages/ArticlePage.vue'
 import Contact from './pages/Contact.vue'
 import Newsletter from './pages/Newsletter.vue'
 import Footer from './components/Footer.vue'
@@ -26,16 +27,30 @@ export default {
     Contact,
     Newsletter,
     Navbar,
-    Footer
+    Footer,
+    ArticlePage
   },
   data() {
     return {
-      CurrentTab : 'Home'
+      CurrentTab : 'Blog',
+      Article : {
+        header : '',
+        image : '',
+        date : '',
+        sections : [],
+      }
     }
   },
   methods : {
     ChangeTab($event,tabName){
       this.CurrentTab = tabName;
+    },
+    OpenArticle($event,article){
+      this.Article = article;
+      console.log(article);
+
+      this.CurrentTab = 'ArticlePage'
+      
     }
   },
   created(){
@@ -56,5 +71,12 @@ export default {
 .pages{
   width : 80%;
   margin: 4% auto 0px auto;
+}
+.imageWrapper{
+  position: relative;
+  overflow: hidden;
+}
+.imageWrapper > img{
+   width: 100%;
 }
 </style>

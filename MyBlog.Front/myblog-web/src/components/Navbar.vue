@@ -2,7 +2,7 @@
     <div class="navbar">
         <w-toolbar class="navbarcontent" bg-color="black" color ="white" height = "50px">
             <img src="../assets/logo.png" height="20">    
-            <div style="padding-left:20px" class="title2">MyBlog</div>
+            <div style="padding-left:20px"  v-on:click="$emit('ChangeTab', $event, 'Home')" class="title2">MyBlog</div>
             <div class="spacer" ></div>
             <div class="Pages">
                 <span class="ml5" v-on:click="$emit('ChangeTab', $event, 'Home')">Home</span>

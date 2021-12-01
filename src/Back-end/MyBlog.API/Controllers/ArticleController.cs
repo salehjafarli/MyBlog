@@ -37,6 +37,20 @@ namespace MyBlog.API.Controllers
             return res is null ? NotFound() : Ok(res);
         }
         [HttpGet]
+        [Route("GetRecentArticles/{amount}")]
+        public async Task<IActionResult> GetRecentArticles(int amount = 4)
+        {
+            var res = await ArticleService.GetRecentArticles(amount);
+            return res is null ? NotFound() : Ok(res);
+        }
+        [HttpGet]
+        [Route("FeaturedArticle")]
+        public async Task<IActionResult> GetFeaturedArticle()
+        {
+            var res = await ArticleService.GetFeaturedArticle();
+            return res is null ? NotFound() : Ok(res);
+        }
+        [HttpGet]
         public async Task<IActionResult> Get()
         {
             var res = await ArticleService.GetArticle();

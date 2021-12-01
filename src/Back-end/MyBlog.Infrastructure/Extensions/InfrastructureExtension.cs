@@ -17,7 +17,7 @@ namespace MyBlog.Infrastructure.Extensions
             var ConString = Configuration.GetConnectionString("npgsql");
             services.AddScoped<IArticleRepository>(x => new ArticleRepository(ConString));
             services.AddScoped<IUserRepository>(x => new UserRepository(ConString));
-
+            services.AddScoped<IOptionRepository, OptionRepository>();
         }
     }
 }

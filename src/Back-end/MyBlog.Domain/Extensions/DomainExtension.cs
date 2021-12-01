@@ -22,6 +22,7 @@ namespace MyBlog.Domain.Extensions
 
             services.AddScoped<ICommandQueryDispatcher,CommandQueryDispatcher>();
             services.AddScoped<IEventDispatcher,EventDispatcher>();
+            
         }
     }
 }

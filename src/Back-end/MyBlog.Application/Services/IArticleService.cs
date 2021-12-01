@@ -16,5 +16,7 @@ namespace MyBlog.Application.Services
         public Task<ArticleResponse> GetArticle(int id);
         public Task<ICollection<ArticleResponse>> GetArticle(string category);
         public Task<ICollection<ArticleResponse>> GetArticle();
+        public Task<ICollection<ArticleResponse>> GetRecentArticles(int amount);
+        public Task<ArticleResponse> GetFeaturedArticle();
     }
 }

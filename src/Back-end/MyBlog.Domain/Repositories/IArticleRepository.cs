@@ -10,5 +10,6 @@ namespace MyBlog.Domain.Repositories
     public interface IArticleRepository : IRepository<Article>
     {
         Task<ICollection<Article>> GetByCategory(string category);
+        Task<ICollection<Article>> GetMostRecent(int amount);
     }
 }

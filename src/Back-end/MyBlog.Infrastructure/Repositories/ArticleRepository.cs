@@ -23,7 +23,10 @@ namespace MyBlog.Infrastructure.Repositories
 
         public Task<bool> Create(Article Entity)
         {
-            throw new NotImplementedException();
+            using (NpgsqlConnection conn = new NpgsqlConnection(ConString))
+            {
+                throw new NotFiniteNumberException();
+            }
         }
 
         public Task<bool> Delete(int Id)
@@ -72,6 +75,10 @@ namespace MyBlog.Infrastructure.Repositories
             return result;
         }
 
+
+
+
+
         public async Task<ICollection<Article>> GetByCategory(string category)
         {
             List<Article> result = new List<Article>();
@@ -82,11 +89,10 @@ namespace MyBlog.Infrastructure.Repositories
                 {
                     comm.Parameters.AddWithValue("category",category);
                     await conn.OpenAsync();
-                    Article article;
                     var reader = await comm.ExecuteReaderAsync();
                     while (reader.Read())
                     {
-                        article = new Article()
+                        Article article = new Article()
                         {
                             Id = (int)reader["id"],
                             MainImage = ImageParser.Parse((string)reader["mainimage"]),
@@ -145,6 +151,48 @@ namespace MyBlog.Infrastructure.Repositories
                             section.Image = ImageParser.Parse(section.ImagePath);
                         }
                         result.Sections = sections;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public async Task<ICollection<Article>> GetMostRecent(int amount)
+        {
+            List<Article> result = new List<Article>();
+            using (NpgsqlConnection conn = new NpgsqlConnection(ConString))
+            {
+                var comtext = "select * from article order by createddate limit @amount";
+                using (NpgsqlCommand comm = new NpgsqlCommand(comtext, conn))
+                {
+                    comm.Parameters.AddWithValue("amount", amount);
+                    await conn.OpenAsync();
+
+                    var reader = await comm.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        Article article = new Article()
+                        {
+                            Id = (int)reader["id"],
+                            MainImage = ImageParser.Parse((string)reader["mainimage"]),
+                            Header = (string)reader["header"],
+                            Date = (DateTime)reader["createddate"],
+                            Description = (string)reader["description"],
+                            Category = (string)reader["category"]
+
+                        };
+
+                        //We dont need to fetch all data
+
+                        //var contentpath = (string)reader["contentpath"];
+                        //var xmlHelper = new XmlHelper(contentpath);
+                        //var sections = xmlHelper.Extract<List<Section>>();
+                        //article.Sections = sections;
+                        //foreach (var section in sections)
+                        //{
+                        //    section.Image = ImageParser.Parse(section.ImagePath);
+                        //}
+                        result.Add(article);
                     }
                 }
             }

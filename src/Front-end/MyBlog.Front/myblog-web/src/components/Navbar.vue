@@ -35,6 +35,7 @@ export default {
     background-color: black;
     display: block;
     height: 100%;
+    
 }
 .navbarcontent{
     width: 80%;

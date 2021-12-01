@@ -14,7 +14,9 @@ namespace MyBlog.Domain.QueryHandlers.Article
     using T = Entites.Article;
     public class ArticleQueryHandler : IRequestHandler<QueryAll<T>, ICollection<T>>,
                                        IRequestHandler<QueryArticleByCategory, ICollection<T>>,
+                                       IRequestHandler<QueryRecentArticles, ICollection<T>>,
                                        IRequestHandler<QueryById<T>,T>
+                                       
     {
         public ArticleQueryHandler(IArticleRepository Repo)
         {
@@ -36,6 +38,11 @@ namespace MyBlog.Domain.QueryHandlers.Article
         public async Task<ICollection<T>> Handle(QueryArticleByCategory request, CancellationToken cancellationToken)
         {
             return await Repo.GetByCategory(request.Category);
+        }
+
+        public async Task<ICollection<T>> Handle(QueryRecentArticles request, CancellationToken cancellationToken)
+        {
+            return await Repo.GetMostRecent(request.Amount);
         }
     }
 }

@@ -7,6 +7,7 @@ using MyBlog.Domain.Commands.Article;
 using MyBlog.Domain.Entites;
 using MyBlog.Domain.Queries;
 using MyBlog.Domain.Queries.Article;
+using MyBlog.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,16 @@ namespace MyBlog.Application.Services
 {
     public class ArticleManager : IArticleService
     {
-        public ArticleManager(ICommandQueryDispatcher CommandQueryDispatcher, IMapper Mapper)
+        public ArticleManager(ICommandQueryDispatcher CommandQueryDispatcher, IMapper Mapper,IOptionRepository OptionRepo)
         {
             this.CommandQueryDispatcher = CommandQueryDispatcher;
             this.Mapper = Mapper;
+            this.OptionRepo = OptionRepo;
         }
 
         public ICommandQueryDispatcher CommandQueryDispatcher { get; }
         public IMapper Mapper { get; }
+        public IOptionRepository OptionRepo { get; }
 
         public async Task<bool> CreateArticle(AddNewArticleVM vmodel)
         {
@@ -71,6 +74,19 @@ namespace MyBlog.Application.Services
             var query = new QueryArticleByCategory(category);
             var res = await CommandQueryDispatcher.ExecuteQuery(query);
             return Mapper.Map<List<ArticleResponse>>(res);
+        }
+
+        public async Task<ICollection<ArticleResponse>> GetRecentArticles(int amount)
+        {
+            var query = new QueryRecentArticles(amount);
+            var res = await CommandQueryDispatcher.ExecuteQuery(query);
+            return Mapper.Map<List<ArticleResponse>>(res);
+        }
+
+        public async Task<ArticleResponse> GetFeaturedArticle()
+        {
+            var FeaturedArticleId = await OptionRepo.GetValue<int>("FeaturedArticleId");
+            return await GetArticle(FeaturedArticleId);
         }
     }
 }

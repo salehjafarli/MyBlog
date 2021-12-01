@@ -14,11 +14,11 @@
 import Navbar from './components/Navbar.vue'
 import Home from './pages/Home.vue'
 import Blog from './pages/Blog.vue'
+import Panel from './pages/Panel.vue'
 import ArticlePage from './pages/ArticlePage.vue'
 import Contact from './pages/Contact.vue'
 import Newsletter from './pages/Newsletter.vue'
 import Footer from './components/Footer.vue'
-
 export default {
   name: 'App',
   components: {
@@ -28,17 +28,13 @@ export default {
     Newsletter,
     Navbar,
     Footer,
-    ArticlePage
+    ArticlePage,
+    Panel
   },
   data() {
     return {
-      CurrentTab : 'Blog',
-      Article : {
-        header : '',
-        image : '',
-        date : '',
-        sections : [],
-      }
+      CurrentTab : 'Panel',
+      Article : {}
     }
   },
   methods : {
@@ -65,6 +61,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color : var(--font-color);
+  
 }
 .pages{
   width : 80%;

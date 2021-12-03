@@ -1,4 +1,5 @@
 import ApiService from '../common/ApiService'
+import CategoryHelper from '../common/CategoryHelper';
 export default {
     state : {   
         Articles : [
@@ -50,12 +51,16 @@ export default {
     mutations : {
         //eslint-disable-next-line
         SetArticle(state,articles){
+            articles.forEach(element => {
+                element.category = CategoryHelper.GetCategoryName(element.category);
+            });
             state.Articles = articles;
             state.Articles.forEach(article => {
                 UpdateDate(article);
             });
         },
         SetArticleById(state,article){
+            article.category = CategoryHelper.GetCategoryName(article.category);
             state.Articles = [
                 ...state.Articles.filter(element => element.id !== article.id),
                 article

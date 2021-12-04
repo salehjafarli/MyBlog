@@ -6,6 +6,5 @@
 
 ## Add at least 6 posts
 
-## Desgin adminpanel
-
-## Add Create Update Delete posts
+## Add "sections" section to adminpanel
+## add adminpanel functionality(post put delete)

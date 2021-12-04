@@ -1,25 +1,52 @@
 <template>
   <div class="FadeBackground">
     <div class="modal">
-      <form class="form" action="">
-        <div class="col" style="margin-right : 2px">
-          <label class="mylbl" for="">Header</label>
-          <input class="myinp" type="text" :value="'salam'" />
-          <label class="mylbl" for="">Description</label>
-          <textarea class="myinp wideInp" type="text" :value="'salam'" />
+      <form action="">
+        <div class="form">
+          <div class="col" style="margin-right: 2px">
+            <div class="r3">
+              <label class="mylbl" for="">Header</label>
+              <input class="myinp" type="text" :value="'salam'" />
+            </div>
+            <div class="r3">
+              <label class="mylbl" for="">Category</label>
+              <select class="myinp" type="text">
+                <option>North America</option>
+                <option>South America</option>
+                <option>Europe</option>
+                <option>Asia</option>
+                <option>Africa</option>
+                <option>Australia</option>
+              </select>
+            </div>
+            <div class="r3">
+              <label class="mylbl" for="">Date</label>
+              <input
+                class="myinp"
+                type="text"
+                v-model="inputVal"
+                @input="onInput($event)"
+              />
+            </div>
+            <div class="r3">
+              <label class="mylbl" for="">Main image</label>
+              <input class="myinp" type="file">
+            </div>
+          </div>
+          <div class="col" style="margin-left: 2px">
+            <div style="height: 100%">
+              <label class="mylbl" for="">Description</label>
+              <div>
+                <textarea class="myinp wideInp" type="text" :value="'salam'" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col" style="margin-left : 2px">
-           <label class="mylbl" for="">Category</label>
-           <select class="myinp" type="text">
-             <option>North America</option>
-             <option>South America</option>
-             <option>Europe</option>
-             <option>Asia</option>
-             <option>Africa</option>
-             <option>Australia</option>
-           </select>
-          <label class="mylbl" for="">Date</label>
-          <input class="myinp" type="text" v-model="inputVal"  v-on:keyup.backspace="DeleteInp" @input="onInput"/>
+        
+
+        <div>
+
+          
         </div>
       </form>
     </div>
@@ -40,31 +67,29 @@ export default {
   data() {
     return {
       isOpen: true,
-      inputVal : '',
-      inputCounter : 0,
+      inputVal: "",
     };
   },
   methods: {
     Submit($event) {
       this.$emit("CloseModal", $event);
     },
-    onInput(){
-      this.inputCounter++;
-      var len = this.inputVal.length; 
-      if( len == 2 || len == 5){
-        this.inputVal += '/';
-      }
-      if(len > 10){
-        this.inputVal = this.inputVal.slice(0,len-1);
+    asd() {
+      alert("asfasf");
+    },
+    onInput(e) {
+      var len = this.inputVal.length;
+      if (len > 10 || "1234567890".indexOf(e.data) == -1) {
+        this.inputVal = this.inputVal.slice(0, len - 1);
+      } else if (e.inputType === "deleteContentBackward") {
+        if (len == 5 || len == 2)
+          this.inputVal = this.inputVal.slice(0, len - 1);
+        return true;
+      } else if (len == 2 || len == 5) {
+        this.inputVal += "/";
       }
     },
-    DeleteInp(){
-      alert('tst');
-        var len = this.inputVal.length; 
-        this.inputVal = this.inputVal.slice(0,len-1);
-        
-    }
-  }
+  },
 };
 </script>
 <style scoped>
@@ -112,32 +137,34 @@ export default {
   transform: translateY(0%);
 }
 
-
 /* #endregion  */
 
-.col{
-  width : 50%;
-  padding : 12px;
-}
-.form{
-  position: relative;
-  width : 100%;
-  display : flex;
-}
-.myinp{
-  width : 100%;
-  background-color:black;
-  border : 1px solid var(--secondary-color);
-  padding : 10px;
-  color : var(--secondary-color);
-}
-.mylbl  {
-  color : var(--secondary-color);
-}
-.wideInp{
-  padding-bottom : 50px;
-  resize: none;
-}
+.col {
+  width: 50%;
+  padding: 12px;
 
- 
+  height: 200px;
+}
+.r3 {
+  height: 33%;
+}
+.form {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+.myinp {
+  width: 100%;
+  background-color: black;
+  border: 1px solid var(--secondary-color);
+  padding: 10px;
+  color: var(--secondary-color);
+}
+.mylbl {
+  color: var(--secondary-color);
+}
+.wideInp {
+  resize: none;
+  height: 100%;
+}
 </style>

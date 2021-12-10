@@ -73,5 +73,10 @@ export default {
 }
 
 function UpdateDate(article){
-        article.date = new Date(article.date).toDateString();
+        var date = article.date;
+        
+        var temp = date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/g)[0].split("-");
+        var cooldate = temp.reverse().join('/');
+        console.log(cooldate);
+        article.date =cooldate;
 }

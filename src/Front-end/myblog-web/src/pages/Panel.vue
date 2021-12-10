@@ -69,10 +69,10 @@ export default {
     }
   },
   mounted() {
-    const elModal = document.querySelector(".modal");
-    const background = document.querySelector(".FadeBackground");
-    elModal.classList.add("open");
-    background.classList.add("FadeBackVisible");
+    // const elModal = document.querySelector(".modal");
+    // const background = document.querySelector(".FadeBackground");
+    // elModal.classList.add("open");
+    // background.classList.add("FadeBackVisible");
   },
 };
 </script>

@@ -70,8 +70,9 @@ export default {
 .imageWrapper{
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 .imageWrapper > img{
-   width: 100%;
+   width: 100%;  
 }
 </style>

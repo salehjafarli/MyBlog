@@ -29,14 +29,21 @@
                   @input="onInput($event)"
                 />
               </div>
-              <div class="r3">
-                <label class="mylbl" for="">Main image</label>
-                <input
-                  class="myinp"
-                  type="file"
-                  accept="image/png, image/gif, image/jpeg"
-                  @change="CheckInput($event)"
-                />
+              <div style="display: flex" class="r3">
+                <div>
+                  <label class="mylbl" for="">Main image</label>
+                  <input
+                    class="myinp"
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg"
+                    @change="CheckInput($event)"
+                  />
+                </div>
+                <div style="margin: auto" class="imageWrapper wrapper">
+                  <img
+                    v-bind:src="`data:image/jpg;base64,${this.SubmitData.mainImage}`"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -57,20 +64,44 @@
         <h3 style="margin: 0">Sections:</h3>
 
         <div style="margin-top: 5px; margin-bottom: 0px">
-          <div style="display : flex" v-for="(section,index) in SubmitData.sections" :key =section.header>
-            <button class="SecButton">Sec {{index + 1}}</button>
+          <div style="display: flex">
+            <button
+              @click.prevent="ChangeSection(index)"
+              v-for="(section, index) in SubmitData.sections"
+              :key="section.header"
+              class="SecButton"
+            >
+              Sec {{ index + 1 }}
+            </button>
           </div>
-          <label class="mylbl" for="">Section image</label>
-          <input
-            class="myinp"
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            @change="CheckInput($event)"
-          />
+          <label class="mylbl" for="">Header</label>
+          <input class="myinp" type="text" :value="currentSec.header" />
+          <div style="display: flex" class="r3">
+            <div>
+              <label class="mylbl" for="">Section image</label>
+              <input
+                class="myinp"
+                type="file"
+                accept="image/png, image/gif, image/jpeg"
+                @change="CheckInput($event)"
+              />
+            </div>
+            <div style="margin: auto" class="imageWrapper wrapper">
+              <img
+                v-bind:src="`data:image/jpg;base64,${this.currentSec.image}`"
+              />
+            </div>
+          </div>
           <label class="mylbl" for="">Section text</label>
           <div>
-            <textarea class="myinp wideInp" rows="12" type="text" :value="''" />
+            <textarea
+              class="myinp wideInp"
+              rows="12"
+              type="text"
+              :value="currentSec.paragraph"
+            />
           </div>
+          <w-button @click="SubmitForm"  class="ma1" bg-color="yellow-light3" color="black" xl>Submit</w-button>
         </div>
       </form>
     </div>
@@ -92,17 +123,17 @@ export default {
     return {
       isOpen: true,
       inputVal: "",
-      currentSec : {}
+      currentSec: {},
     };
   },
   watch: {
     date: function (val) {
       this.inputVal = val;
     },
-    sections : function(val){
-      this.currentSec = val[0]
+    sections: function (val) {
+      this.currentSec = val[0];
       console.log(val);
-    }
+    },
   },
   computed: {
     SubmitData() {
@@ -120,13 +151,17 @@ export default {
     Submit($event) {
       this.$emit("CloseModal", $event);
     },
-    asd() {
-      alert("asfasf");
+    ChangeSection(index) {
+      this.currentSec = this.SubmitData.sections[index];
     },
     onInput(e) {
       var len = this.inputVal.length;
-      
-      if (len > 10 || e.inputType != "deleteContentBackward" && "1234567890".indexOf(e.data) == -1) {
+
+      if (
+        len > 10 ||
+        (e.inputType != "deleteContentBackward" &&
+          "1234567890".indexOf(e.data) == -1)
+      ) {
         this.inputVal = this.inputVal.slice(0, len - 1);
       } else if (e.inputType === "deleteContentBackward") {
         if (len == 5 || len == 2)
@@ -142,7 +177,19 @@ export default {
       if (!"image/png, image/gif, image/jpeg".split(" ").includes(file.type)) {
         e.srcElement.value = "";
       }
+      //eslint-disable-next-line
+      var reader = new FileReader();
+      reader.onload = function () {
+        var str = reader.result;
+        console.log(this.SubmitData);
+        this.SubmitData.mainImage = str;
+      }
+      reader.readAsDataURL(file);
+
     },
+    SubmitForm(){
+
+    }
   },
 };
 </script>
@@ -168,7 +215,6 @@ export default {
   margin: auto;
   background-color: black;
   border: 2px solid var(--secondary-color);
-  top: 25%;
   width: 75%;
   font-size: 14px;
   opacity: 0;
@@ -223,5 +269,9 @@ export default {
 .SecButton {
   width: 5%;
   height: 20px;
+}
+.wrapper {
+  height: 8%;
+  width: 8%;
 }
 </style>
